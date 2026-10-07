@@ -168,3 +168,18 @@ Common Binance error codes are mapped to plain-English hints (see `_ERROR_HINTS`
 | `python-dotenv` | Load `.env` credentials |
 
 All listed in `requirements.txt`. No heavy frameworks.
+
+---
+
+## Architecture
+
+The command line validates a requested order before the API client signs and sends it to the Binance USDT-M Futures Testnet. The client handles the response and errors; structured logging records activity for debugging.
+
+```mermaid
+flowchart LR
+  U[CLI arguments] --> V[Input validation]
+  V --> O[Order orchestration]
+  O --> C[REST client and HMAC signing]
+  C --> X[Binance Futures Testnet]
+  O --> L[Console output and logs]
+```
